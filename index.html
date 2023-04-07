@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Exemplu de aplicație web cu design pattern-uri</title>
+    <style>
+      /* Stilizare pentru pagina web */
+      body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+      }
+
+      /* Stilizare pentru butonul de tip factory method */
+      .button {
+        background-color: #4caf50;
+        border: none;
+        color: white;
+        padding: 15px 32px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        margin: 4px 2px;
+        cursor: pointer;
+      }
+
+      /* Stilizare pentru input-ul de tip builder */
+      .form-input {
+        margin: 10px;
+        padding: 5px;
+        width: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Exemplu de aplicație web cu design pattern-uri</h1>
+    <p>
+      Acesta este un exemplu de aplicație web care utilizează cele patru
+      design pattern-uri: Singleton, Factory Method, Abstract Factory și
+      Builder.
+    </p>
+
+    <!-- Exemplu de utilizare a design pattern-ului Singleton -->
+    <h2>Utilizarea design pattern-ului Singleton</h2>
+    <button onclick="showMessage()">Afiseaza mesaj</button>
+
+    <!-- Exemplu de utilizare a design pattern-ului Factory Method -->
+    <h2>Utilizarea design pattern-ului Factory Method</h2>
+    <button class="button" onclick="createCar()">Creează mașină</button>
+    <p id="car-info"></p>
+
+    <!-- Exemplu de utilizare a design pattern-ului Abstract Factory -->
+    <h2>Utilizarea design pattern-ului Abstract Factory</h2>
+    <label for="car-type">Selectează tipul de mașină:</label>
+    <select id="car-type" onchange="createCar()">
+      <option value="Ford">Ford</option>
+      <option value="BMW">BMW</option>
+    </select>
+    <p id="car-info"></p>
+
+    <!-- Exemplu de utilizare a design pattern-ului Builder -->
+    <h2>Utilizarea design pattern-ului Builder</h2>
+    <form>
+      <input
+        class="form-input"
+        type="text"
+        id="model-input"
+        placeholder="Introduceți modelul mașinii"
+      />
+      <input
+        class="form-input"
+        type="text"
+        id="year-input"
+        placeholder="Introduceți anul mașinii"
+      />
+      <input
+      class="form-input"
+      type="text"
+      id="type-input"
+      placeholder="Introduceți tipul mașinii"
+    />
+    <button class="button" type="button" onclick="buildCar()">
+      Creează mașină
+    </button>
+  </form>
+  <p id="car-info"></p>
+  
+  <script>
+    // Implementarea design pattern-ului Singleton
+    const Singleton = (function () {
+      let instance;
+  
+      function createInstance() {
+        const object = new Object({ message: "Hello World!" });
+        return object;
+      }
+  
+      return {
+        getInstance: function () {
+          if (!instance) {
+            instance = createInstance();
+          }
+          return instance;
+        },
+      };
+    })();
+  
+    function showMessage() {
+      const singleton = Singleton.getInstance();
+      alert(singleton.message);
+    }
+  
+    // Implementarea design pattern-ului Factory Method
+    class Car {
+      constructor(model, year, type) {
+        this.model = model;
+        this.year = year;
+        this.type = type;
+      }
+  
+      getInfo() {
+        return `${this.model} ${this.year} ${this.type}`;
+      }
+    }
+  
+    class CarFactory {
+      createCar(model, year, type) {
+        return new Car(model, year, type);
+      }
+    }
+  
+    const carFactory = new CarFactory();
+    function createCar() {
+      const myCar = carFactory.createCar("Toyota", "2022", "SUV");
+      document.getElementById("car-info").innerHTML = myCar.getInfo();
+    }
+  
+    // Implementarea design pattern-ului Abstract Factory
+    class FordCar {
+      constructor(model, year) {
+        this.model = model;
+        this.year = year;
+      }
+  
+      getInfo() {
+        return `${this.model} ${this.year} by Ford`;
+      }
+    }
+  
+    class BMWCar {
+      constructor(model, year) {
+        this.model = model;
+        this.year = year;
+      }
+  
+      getInfo() {
+        return `${this.model} ${this.year} by BMW`;
+      }
+    }
+  
+    class CarAbstractFactory {
+      createCar(type, model, year) {
+        if (type === "Ford") {
+          return new FordCar(model, year);
+        } else if (type === "BMW") {
+          return new BMWCar(model, year);
+        } else {
+          throw new Error("Invalid car type.");
+        }
+      }
+    }
+  
+    const carAbstractFactory = new CarAbstractFactory();
+    function createCar() {
+      const carType = document.getElementById("car-type").value;
+      const myCar = carAbstractFactory.createCar(
+        carType,
+        "Mustang",
+        "2022"
+      );
+      document.getElementById("car-info").innerHTML = myCar.getInfo();
+    }
+  
+    // Implementarea design pattern-ului Builder
+    class CarBuilder {
+      constructor() {
+        this.car = new Car({});
+      }
+  
+      setModel(model) {
+        this.car.model = model;
+        return this;
+      }
+  
+      setYear(year) {
+        this.car.year = year;
+        return this;
+      }
+  
+      setType(type) {
+        this.car.type = type;
+        return this;
+      }
+  
+      build() {
+        return this.car;
+      }
+    }
+  
+    function buildCar() {
+      const model = document.getElementById("model-input").value;
+      const year = document.getElementById("year-input").value;
+      const type = document.getElementById("type-input").value;
+  
+      const myCar = new CarBuilder()
+        .setModel(model)
+        .setYear(year)
+        .setType(type)
+        .build();
+  
+      document.getElementById("car-info").innerHTML = myCar.getInfo();
+    }
+  </script>
+  
