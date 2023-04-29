@@ -1,8 +1,34 @@
-# Mod de pornire a aplicatiei
+# Exemplu de aplicație web cu design pattern-uri
+
+Acest proiect demonstrează utilizarea a patru design pattern-uri (Singleton, Factory Method, Abstract Factory și Builder) în contextul unei aplicații web simple.
+
+## Cuprins
+
+- [Introducere](#introducere)
+- [Tehnologii](#tehnologii)
+- [Instalare și configurare](#instalare-și-configurare)
+- [Explicatie](#explicatie)
+- [Singleton](#contribuție)
+- [Factory Method](#factory-method)
+- [Abstract Factory](#abstract-factory)
+- [Builder](#builder)
+
+
+## Introducere
+
+Acest proiect este un exemplu simplu de aplicație web care ilustrează cum să utilizați patru design pattern-uri populare în dezvoltarea unei aplicații. Scopul proiectului este de a oferi o înțelegere de bază a modului în care aceste patternuri pot fi utilizate și cum pot îmbunătăți calitatea și structura codului.
+
+## Tehnologii
+
+- HTML5
+- CSS
+- JavaScript
+
+## Instalare și configurare
 1. Trebuie de instalat Live server
 2. click ,,GO LIVE"
 
-# Explicatie:
+## Explicatie:
 ## Singleton:
 Singleton este un design pattern care asigură că o clasă are o singură instanță și oferă un punct de acces global la aceasta. În acest exemplu, Singleton este creat folosind o funcție care returnează un obiect cu metoda getInstance().
 ```
