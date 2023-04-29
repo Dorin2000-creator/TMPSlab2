@@ -1,7 +1,8 @@
+# Mod de pornire a aplicatiei
 1. Trebuie de instalat Live server
 2. click ,,GO LIVE"
 
-Explicatie:
+## Explicatie:
 # Singleton:
 Singleton este un design pattern care asigură că o clasă are o singură instanță și oferă un punct de acces global la aceasta. În acest exemplu, Singleton este creat folosind o funcție care returnează un obiect cu metoda getInstance().
 ```
