@@ -1,14 +1,145 @@
 1. Trebuie de instalat Live server
 2. click ,,GO LIVE"
 
-Design pattern-ul Singleton 
-exportă o metodă numită getInstance, care verifică dacă o instanță Singleton există deja. Dacă nu există, se creează o instanță și se returnează. Funcția showMessage utilizează metoda getInstance pentru a obține instanța Singleton și afișează un mesaj.
+1. Singleton:
+Singleton este un design pattern care asigură că o clasă are o singură instanță și oferă un punct de acces global la aceasta. În acest exemplu, Singleton este creat folosind o funcție care returnează un obiect cu metoda getInstance().
 
-Design pattern-ul Factory Method 
-este implementat prin intermediul a două clase: Car și CarFactory. Clasa Car reprezintă un obiect mașină, iar clasa CarFactory este responsabilă pentru crearea acestor obiecte. Funcția createCar utilizează instanța carFactory pentru a crea un nou obiect Car și a afișa informații despre acesta.
+const Singleton = (function () {
+  let instance;
 
-Design pattern-ul Abstract Factory 
-este implementat prin intermediul a trei clase: FordCar, BMWCar și CarAbstractFactory. Clasele FordCar și BMWCar reprezintă obiecte mașină specifice, iar clasa CarAbstractFactory este responsabilă pentru crearea acestor obiecte. Funcția createCar utilizează instanța carAbstractFactory pentru a crea un nou obiect mașină, în funcție de tipul selectat.
+  function createInstance() {
+    const object = new Object({ message: "Hello World!" });
+    return object;
+  }
 
-Design pattern-ul Builder 
-este implementat prin intermediul clasei CarBuilder. Această clasă are o metodă de constructor care creează o instanță goală a obiectului Car. Această clasă are, de asemenea, metode pentru setarea valorilor modelului, anului și tipului mașinii și o metodă build care întoarce obiectul final. Funcția buildCar utilizează clasa CarBuilder pentru a construi un nou obiect Car, utilizând datele introduse de utilizator.
+  return {
+    getInstance: function () {
+      if (!instance) {
+        instance = createInstance();
+      }
+      return instance;
+    },
+  };
+})();
+
+function showMessage() {
+  const singleton = Singleton.getInstance();
+  alert(singleton.message);
+}
+
+Când apăsați butonul "Afiseaza mesaj", funcția showMessage() este apelată, care apelează Singleton.getInstance() pentru a obține instanța Singleton și afișează mesajul său.
+
+2. Factory Method:
+Factory Method este un design pattern care definește o interfață pentru crearea de obiecte într-o superclasă, dar permite subclaselor să decidă ce obiecte să creeze. În acest exemplu, clasa CarFactory are metoda createCar() care creează și returnează un obiect Car.
+
+class Car {
+  constructor(model, year, type) {
+    this.model = model;
+    this.year = year;
+    this.type = type;
+  }
+
+  getInfo() {
+    return `${this.model} ${this.year} ${this.type}`;
+  }
+}
+
+class CarFactory {
+  createCar(model, year, type) {
+    return new Car(model, year, type);
+  }
+}
+
+const carFactory = new CarFactory();
+function createCar() {
+  const myCar = carFactory.createCar("Toyota", "2022", "SUV");
+  document.getElementById("car-info").innerHTML = myCar.getInfo();
+}
+
+Când apăsați butonul "Creează mașină", funcția createCar() este apelată, care folosește carFactory.createCar() pentru a crea un obiect Car și afișează informațiile sale.
+
+3. Abstract Factory:
+Abstract Factory este un design pattern care oferă o interfață pentru crearea de familii de obiecte înrudite sau dependente fără a specifica clasele concrete. În acest exemplu, clasa CarAbstractFactory are o metodă createCar() care primește tipul, modelul și anul mașinii și creează obiecte FordCar sau BMWCar în funcție de tip.
+
+class FordCar {
+  constructor(model, year) {
+    this.model = model;
+    this.year = year;
+  }
+
+  getInfo() {
+    return `${this.model} ${this.year} by Ford`;
+  }
+}
+
+class BMWCar {
+  constructor(model, year) {
+    this.model = model;
+    this.year = year;
+  }
+
+  getInfo() {
+    return `${this.model} ${this.year} by BMW`;
+  }
+}
+
+class CarAbstractFactory {
+  createCar(type, model, year) {
+    if (type === "Ford") {
+      return new FordCar(model, year);
+    } else if (type === "BMW") {
+      return new BMWCar(model, year);
+    } else {
+      throw new Error("Invalid car type.");
+    }
+  }
+}
+
+const carAbstractFactory = new CarAbstractFactory();
+function createCar() {
+  const carType = document.getElementById("car-type").value;
+  const myCar = carAbstractFactory.createCar(carType, "Mustang", "2022");
+  document.getElementById("car-info").innerHTML = myCar.getInfo();
+}
+
+4. Builder:
+Builder este un design pattern care separă construcția unui obiect complex de reprezentarea sa, astfel încât același proces de construcție poate crea reprezentări diferite. În acest exemplu, clasa CarBuilder are metode pentru a seta modelul, anul și tipul mașinii și o metodă build() care returnează obiectul Car.
+
+class CarBuilder {
+  constructor() {
+    this.car = new Car({});
+  }
+
+  setModel(model) {
+    this.car.model = model;
+    return this;
+  }
+
+  setYear(year) {
+    this.car.year = year;
+    return this;
+  }
+
+  setType(type) {
+    this.car.type = type;
+    return this;
+  }
+
+  build() {
+    return this.car;
+  }
+}
+
+function buildCar() {
+  const model = document.getElementById("model-input").value;
+  const year = document.getElementById("year-input").value;
+  const type = document.getElementById("type-input").value;
+
+  const myCar = new CarBuilder()
+    .setModel(model)
+    .setYear(year)
+    .setType(type)
+    .build();
+
+  document.getElementById("car-info").innerHTML = myCar.getInfo();
+}
