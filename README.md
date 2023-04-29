@@ -2,8 +2,8 @@
 1. Trebuie de instalat Live server
 2. click ,,GO LIVE"
 
-## Explicatie:
-# Singleton:
+# Explicatie:
+## Singleton:
 Singleton este un design pattern care asigură că o clasă are o singură instanță și oferă un punct de acces global la aceasta. În acest exemplu, Singleton este creat folosind o funcție care returnează un obiect cu metoda getInstance().
 ```
 const Singleton = (function () {
@@ -31,7 +31,7 @@ function showMessage() {
 ```
 Când apăsați butonul "Afiseaza mesaj", funcția showMessage() este apelată, care apelează Singleton.getInstance() pentru a obține instanța Singleton și afișează mesajul său.
 
-# Factory Method:
+## Factory Method:
 Factory Method este un design pattern care definește o interfață pentru crearea de obiecte într-o superclasă, dar permite subclaselor să decidă ce obiecte să creeze. În acest exemplu, clasa CarFactory are metoda createCar() care creează și returnează un obiect Car.
 ```
 class Car {
@@ -60,7 +60,7 @@ function createCar() {
 ```
 Când apăsați butonul "Creează mașină", funcția createCar() este apelată, care folosește carFactory.createCar() pentru a crea un obiect Car și afișează informațiile sale.
 
-# Abstract Factory:
+## Abstract Factory:
 Abstract Factory este un design pattern care oferă o interfață pentru crearea de familii de obiecte înrudite sau dependente fără a specifica clasele concrete. În acest exemplu, clasa CarAbstractFactory are o metodă createCar() care primește tipul, modelul și anul mașinii și creează obiecte FordCar sau BMWCar în funcție de tip.
 ```
 class FordCar {
@@ -104,7 +104,7 @@ function createCar() {
   document.getElementById("car-info").innerHTML = myCar.getInfo();
 }
 ```
-# Builder:
+## Builder:
 Builder este un design pattern care separă construcția unui obiect complex de reprezentarea sa, astfel încât același proces de construcție poate crea reprezentări diferite. În acest exemplu, clasa CarBuilder are metode pentru a seta modelul, anul și tipul mașinii și o metodă build() care returnează obiectul Car.
 ```
 class CarBuilder {
