@@ -8,7 +8,7 @@ Acest proiect demonstrează utilizarea a patru design pattern-uri (Singleton, Fa
 - [Tehnologii](#tehnologii)
 - [Instalare și configurare](#instalare-și-configurare)
 - [Explicatie](#explicatie)
-- [Singleton](#contribuție)
+- [Singleton](#singleton)
 - [Factory Method](#factory-method)
 - [Abstract Factory](#abstract-factory)
 - [Builder](#builder)
